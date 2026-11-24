@@ -1,0 +1,79 @@
+# Canvas
+CANVAS_W = 320
+CANVAS_H = 180
+
+# Window
+SCALE = 4
+WINDOW_W = CANVAS_W * SCALE
+WINDOW_H = CANVAS_H * SCALE
+
+# Timing
+FPS = 60
+
+# Sky Setting
+SKY_COLOR = (0, 0, 0)
+
+# Tree settings
+TREE_CENTER_X = CANVAS_W // 2
+TREE_TOP_Y = 30
+TREE_BASE_Y = 150
+TREE_TIERS = 6
+TIER_HEIGHT = 42
+TREE_TOP_HALF_W = 14
+TREE_BOTTOM_HALF_W = 50
+
+TRUNK_W = 12
+TRUNK_H = 14
+
+# Floor settings
+GROUND_Y = TREE_BASE_Y + TRUNK_H
+GROUND_COLOR = (224, 235, 255)
+
+# Colors for Tree, Trunk
+LEAF_LIGHT = (38, 140, 62)
+LEAF_DARK = (22, 100, 48)
+LEAF_EDGE = (10, 60, 30)
+TRUNK_COLOR_LEFT = (92, 58, 34)
+TRUNK_COLOR_RIGHT = (64, 42, 24)
+
+
+# Star Settings
+STAR_POINTS = 5                             
+STAR_OUTER_R = 10                             
+STAR_INNER_R = 4                            
+STAR_CENTER_Y = TREE_TOP_Y - STAR_OUTER_R // 2 
+
+STAR_COLOR = (240, 190, 40)
+STAR_HIGHLIGHT = (255, 235, 100)
+
+# Lights Settings
+LIGHTS_PER_TIER = 20
+LIGHT_SIZE = 1
+LIGHT_BAND_H = 20
+LIGHT_EDGE_MARGIN = 4
+LIGHT_MIN_DIST = 10
+LIGHT_SEED = 9
+LIGHT_BLINK_MIN = 1.5               
+LIGHT_BLINK_MAX = 4.0               
+LIGHT_DIM = 0
+LIGHT_COLORS = [
+    (255, 70, 70),     # red
+    (255, 210, 80),    # yellow
+    (90, 170, 255),    # blue
+    (255, 120, 220),   # pink
+]
+
+# Snow Settings
+SNOW_COUNT = 200
+SNOW_FAR_FRACTION = 0.6
+
+SNOW_SPEED_FAR = (10, 18)
+SNOW_SPEED_NEAR = (25, 45)
+SNOW_SIZE_NEAR = [1, 2]
+
+SNOW_SWAY_AMP = (2, 6)
+SNOW_SWAY_SPEED = (0.8, 2.0)
+SNOW_WIND = 4.0
+
+SNOW_COLOR_FAR = (110, 120, 165)
+SNOW_COLOR_NEAR = (245, 248, 255)
