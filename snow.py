@@ -25,22 +25,27 @@ class Snowflake:
         self.reset(anywhere=True)
 
     def reset(self, anywhere=False):
-        """Put the flake back at the top (or anywhere, for the first spawn)."""
         self.base_x = self.rng.uniform(0, CANVAS_W)
-        self.y = self.rng.uniform(-10, CANVAS_H) if anywhere else self.rng.uniform(-10, -2)
-        self.land_y = self.rng.uniform(GROUND_Y, CANVAS_H)
+        self.y = self.rng.uniform(-10, GROUND_Y) if anywhere else self.rng.uniform(-10, -2)
 
-    def update(self, dt, elapsed):
+    def current_x(self, elapsed):
+        """Where the flake actually is, including the side-to-side sway."""
+        sway = math.sin(elapsed * self.sway_speed + self.sway_phase) * self.sway_amp
+        return (self.base_x + sway) % CANVAS_W
+
+    def update(self, dt, elapsed, pile):
         self.y += self.speed * dt
         wind = SNOW_WIND * (0.5 if self.far else 1.0)
-        self.base_x = (self.base_x + wind * dt) % CANVAS_W  
+        self.base_x = (self.base_x + wind * dt) % CANVAS_W
 
-        if self.y >= self.land_y:
+        x = self.current_x(elapsed)
+        surface_y = GROUND_Y - pile.height_at(x)
+        if self.y + self.size >= surface_y:
+            pile.add(x)
             self.reset()
 
     def draw(self, surface, elapsed):
-        sway = math.sin(elapsed * self.sway_speed + self.sway_phase) * self.sway_amp
-        x = (self.base_x + sway) % CANVAS_W
+        x = self.current_x(elapsed)
         surface.fill(self.color, (round(x), round(self.y), self.size, self.size))
 
 
@@ -49,13 +54,12 @@ def create_snow():
     return [Snowflake(rng) for _ in range(SNOW_COUNT)]
 
 
-def update_snow(flakes, dt, elapsed):
+def update_snow(flakes, dt, elapsed, pile):
     for flake in flakes:
-        flake.update(dt, elapsed)
+        flake.update(dt, elapsed, pile)
 
 
 def draw_snow(surface, flakes, elapsed, far):
-    """Draw only the far flakes (far=True) or only the near ones (far=False)."""
     for flake in flakes:
         if flake.far == far:
             flake.draw(surface, elapsed)
